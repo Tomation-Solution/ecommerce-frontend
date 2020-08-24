@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from './../../login-register/auth.service';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminDashboardComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(public authService: AuthService, private router: Router) { }
+    username: string;
   ngOnInit(): void {
+    this.username = sessionStorage.getItem('username');
   }
-
+  logOut(): void {
+    this.authService.logOutVendor();
+    this.authService.isLoggedIn = false;
+    this.router.navigateByUrl('/home');
+  }
 }

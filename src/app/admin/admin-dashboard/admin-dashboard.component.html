@@ -1,15 +1,30 @@
-<div class="container">
-  <aside>
-    <ul>
-      <li>Categories</li>
-      <li>Products</li>
-      <li>Add Products</li>
-      <li></li>
-    </ul>
-  </aside>
-  <section>
-<div class="product">
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+  <!-- Brand -->
+  <a class="navbar-brand" href="#">Welcome {{username}}</a>
 
+  <!-- Toggler/collapsibe Button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <ul class="nav">
+    <li class="nav-item">
+      <button (click)="logOut()" class="btn text-white" [hidden]="!authService.isLoggedIn" style="background-color: #d8373e;">Log out</button>
+    </li>
+  </ul>
+</nav>
+<div class="main">
+  <aside>
+      <ul>
+          <li><a [routerLink]="['categories']">Categories</a></li>
+          <li><a [routerLink]="['products']">Products</a></li>
+          <li><a [routerLink]="['categories',0]">Add-Edit-Category</a></li>
+          <li><a [routerLink]="['products',0]">Add-Edit-product</a></li>
+          <li><a [routerLink]="['profile']">Profile</a> </li>
+      </ul>
+  </aside>
+<div>
+  <router-outlet></router-outlet>
 </div>
-  </section>
 </div>
+

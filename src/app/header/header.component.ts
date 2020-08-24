@@ -1,3 +1,4 @@
+import { CategoryServiceService } from './../services/category-service.service';
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 @Component({
@@ -6,7 +7,8 @@ import * as $ from 'jquery';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  constructor() { }
+  allCategories = [];
+  constructor(private catService: CategoryServiceService) { }
 
   ngOnInit(): void {
     $('.category-toggle').on('click', () => {
@@ -18,6 +20,11 @@ export class HeaderComponent implements OnInit {
     $('.mini-cart-btn').on('click', () => {
       $('.cart-list').slideToggle();
     });
+
+    // fetches all categorys
+    this.catService.getAllCategories().subscribe(result => {
+      this.allCategories = result.data;
+    }, err => {});
   }
 
 }

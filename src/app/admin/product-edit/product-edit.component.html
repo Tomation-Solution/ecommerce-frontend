@@ -1,0 +1,44 @@
+<form novalidate class="w-50 m-auto mb-20" [formGroup]='productForm' (ngSubmit)="updateOrAddProduct()" >
+  <h3 class="text-muted">{{updateOrAdd}} a Product Name</h3>
+  <span *ngIf="uploadHasError" class="text-danger">A problem occurred when sending the data, please try again</span>
+  <div class="form-group mt-30">
+    <label for="email">Product Name</label>
+    <input type="text" class="form-control" id="product_name"
+    name="productName" formControlName='productName'>
+  </div>
+
+  <div class="form-group">
+    <label for="pwd">Product Image:</label>
+    <input type="file" class="form-control" id="product_image" name="productImage" formControlName='productImage' (change)="onFileSelected($event)">
+    <span class="text-danger" *ngIf="productForm.get('productImage').touched && productForm.get('productImage').errors?.required">
+       Product image is required
+      </span>
+  </div>
+  <div class="form-group">
+    <label for="comment">Description</label>
+    <textarea class="form-control" rows="5" id="description" name="description" formControlName='description'></textarea>
+  </div>
+  <div class="form-group">
+    <label for="category">Select list:</label>
+    <select class="form-control" id="category" name="categoryId" formControlName='categoryId' >
+      <option value="{{category.category_id}}" *ngFor="let category of allCategories" >{{category.category_name}}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="stockqty">Stock Quantity</label>
+    <input type="number" class="form-control" id="stockqty" name="stockQuantity" formControlName='stockQuantity'>
+  </div>
+  <div class="form-group">
+    <label for="price">Unit Price</label>
+    <input type="number" class="form-control" id="price" name="price" formControlName='price'>
+  </div>
+  <div class="form-group">
+    <label for="manufacturer">Manufacturer</label>
+    <input type="text" class="form-control" id="manufacturer" name="manufacturer" formControlName='manufacturer'>
+  </div>
+
+  <button type="submit" class="btn btn-primary productAddButton" [disabled]='!productForm.valid'
+   [title]='productForm.valid? "save your data": "disabled till form is valid" '>
+    {{updateOrAdd}}
+  </button>
+</form>

@@ -1,3 +1,46 @@
-.container {
+
+.main>div:last-child {
+  width: 100%;
+}
+body {
+  background-color: rgba(247, 244, 244, 0.925);
+}
+
+.main {
   display: flex;
 }
+
+/* styling for the aside*/
+aside {
+  background-color: #1d2531;
+  color: white;
+  height: 100vh;
+}
+
+aside ul {
+  list-style: none;
+  text-align: center;
+  padding: 10px 0px 10px 0px;
+}
+
+aside ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+aside ul li a:hover {
+  color: rgb(68, 174, 235);
+  text-decoration: none;
+}
+
+aside ul li {
+  font-size: larger;
+  border-bottom: 1px solid white;
+  padding: 8px 16px 8px 16px;
+}
+
+.body ul {
+  padding: 5px;
+  list-style: none;
+}
+

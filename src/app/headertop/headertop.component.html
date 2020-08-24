@@ -1,0 +1,47 @@
+    <!-- header top start -->
+    <div class="header-top-area bg-gray text-center text-md-left">
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-6 col-md-5">
+                  <div class="header-call-action">
+                      <a href="#">
+                          <i class="fa fa-envelope"></i>
+                          info@medheightspharmacy.com
+                      </a>
+                      <a href="#" [hidden]="!this.authService.CustomerDetails.isLoggedIn" class='font-bold'>
+                          <i class="fa fa-phone"></i>
+                          welcome {{username}}
+                      </a>
+                  </div>
+              </div>
+              <div class="col-lg-6 col-md-7">
+                  <div class="header-top-right float-md-right float-none">
+                      <nav>
+                          <ul>
+                              <li>
+                                <a routerLink="/admin" [hidden]="authService.isLoggedIn">Admin</a>
+                              </li>
+                              <li>
+                                <a [routerLink]="['/account']" [hidden]="!authService.isLoggedIn">My Account</a>
+                              </li>
+                              <li>
+                                  <a routerLink="/login" [hidden]="authService.isLoggedIn">Login</a>
+                              </li>
+                              <li>
+                                  <a routerLink="/login" [hidden]="authService.isLoggedIn">Register</a>
+                              </li>
+                              <li>
+                                  <a href="#" [hidden]="authService.isLoggedIn">my cart</a>
+                              </li>
+                              <li>
+                                  <a href="#" [hidden]="authService.isLoggedIn" >checkout</a>
+                              </li>
+
+                          </ul>
+                      </nav>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- header top end -->

@@ -6,7 +6,7 @@
                       <div class="breadcrumb-wrap">
                           <nav aria-label="breadcrumb">
                               <ul class="breadcrumb">
-                                  <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                  <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
                                   <li class="breadcrumb-item active" aria-current="page">login-register</li>
                               </ul>
                           </nav>
@@ -55,38 +55,37 @@
                       <!-- Register Content Start -->
                       <div class="col-lg-6">
                           <div class="login-reg-form-wrap mt-md-34 mt-sm-34">
-                              <h2>Singup Form</h2>
-                              <form action="#" method="post">
+                              <h2>Signup Form</h2>
+                              <form  method="post" #form="ngForm" (ngSubmit)="register(form)">
                                   <div class="single-input-item">
-                                      <input type="text" placeholder="Full Name" required />
+                                      <input type="text" placeholder="First Name" required #firstname name="firstName" [(ngModel)]="customer.firstName"/>
                                   </div>
                                   <div class="single-input-item">
-                                      <input type="email" placeholder="Enter your Email" required />
+                                      <input type="text" placeholder="Last Name" #lastname required name="lastName" [(ngModel)]="customer.lastName"/>
+                                  </div>
+                                  <div class="single-input-item">
+                                      <input type="email" placeholder="Enter your Email" required name="email" [(ngModel)]="customer.email"/>
+                                  </div>
+                                  <div class="single-input-item">
+                                      <input type="tel" #tel placeholder="Phone Number - 080.."
+                                      required name="phoneNumber" [(ngModel)]="customer.phoneNumber" maxlength="11"/>
                                   </div>
                                   <div class="row">
                                       <div class="col-lg-6">
                                           <div class="single-input-item">
-                                              <input type="password" placeholder="Enter your Password" required />
+                                              <input type="password" #pwd placeholder="Enter your Password - at least 8 characters" required name="password"  [(ngModel)]="customer.password" minlength='8'/>
                                           </div>
                                       </div>
                                       <div class="col-lg-6">
                                           <div class="single-input-item">
-                                              <input type="password" placeholder="Repeat your Password" required />
+                                              <input type="password" #pwd1 placeholder="Repeat your Password" required name="password2" [ngModel] minlength='8'/>
                                           </div>
                                       </div>
                                   </div>
+                                  <span class="text-danger" *ngIf="pwd.value !== pwd1.value ">Password does not match</span>
+                                  <span class="text-danger" *ngIf="pwd.invalid">Password must be 8 at least 8 characters</span>
                                   <div class="single-input-item">
-                                      <div class="login-reg-form-meta">
-                                          <div class="remember-meta">
-                                              <div class="custom-control custom-checkbox">
-                                                  <input type="checkbox" class="custom-control-input" id="subnewsletter">
-                                                  <label class="custom-control-label" for="subnewsletter">Subscribe Our Newsletter</label>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <div class="single-input-item">
-                                      <button class="sqr-btn">Register</button>
+                                      <button class="sqr-btn" [disabled]="form.invalid || pwd.value !== pwd1.value" type="submit">Register</button>
                                   </div>
                               </form>
                           </div>

@@ -1,0 +1,28 @@
+<div class="card mr-md-1 py-md-2 px-3 mb-3">
+  <a [routerLink]="['/','product',product.product_id]">
+    <img src="http://127.0.0.1:5000/static/{{product.product_image}}" class="card-img-top" alt="...">
+  </a>
+  <div class="card-body">
+    <h5 class="card-title">{{product.product_name}}</h5>
+    <div class="sub">
+      <div class="rating">
+        <i class="fa fa-star" aria-hidden="true" style="color: #d8373e"></i>
+        <i class="fa fa-star" aria-hidden="true"></i>
+        <i class="fa fa-star" aria-hidden="true"></i>
+        <i class="fa fa-star" aria-hidden="true"></i>
+        <i class="fa fa-star" aria-hidden="true"></i>
+        <i class="fa fa-star" aria-hidden="true"></i>
+      </div>
+      <span>&#8358; {{product.price}}</span>
+    </div>
+    <div class="subactions">
+      <p class="card-text text-muted">3 reviews</p>
+      <div>
+        <i class="fa fa-cart-plus" aria-hidden="true" title="Add to Cart"></i>
+        <i class="fa fa-search" aria-hidden="true" title="Quick View" data-target="#myModal" data-toggle="modal" (click)="popUpProduct()" ></i>
+      </div>
+    </div>
+
+
+  </div>
+</div>

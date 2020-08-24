@@ -1,3 +1,6 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TokenInterceptorService } from './token-interceptor.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -13,10 +16,12 @@ import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { AdminModule } from './admin/admin.module';
-
+import { HeadertopComponent } from './headertop/headertop.component';
+import { ProductComponent } from './product/product.component';
 @NgModule({
   declarations: [
     AppComponent,
+    HeadertopComponent,
     HeaderComponent,
     LoginRegisterComponent,
     HomeComponent,
@@ -25,13 +30,17 @@ import { AdminModule } from './admin/admin.module';
     CartComponent,
     CheckoutComponent,
     ProductDetailComponent,
+    ProductComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
-    AdminModule
+    AdminModule,
   ],
-  providers: [],
+  exports: [HeadertopComponent],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

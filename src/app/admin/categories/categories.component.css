@@ -1,0 +1,24 @@
+.card-header {
+  display: flex;
+  justify-content: space-between;
+}
+.card-header div button:last-child {
+  margin-left: 2px;
+}
+/* for small mobile phone */
+@media only screen and (max-width: 600px) {
+
+}
+
+/* for tablets phone */
+@media only screen and (min-width: 600px) {
+
+}
+
+/* for laptops */
+@media only screen and (min-width: 992px) {
+
+}
+
+/* for desktop  */
+@media only screen and (min-width: 1200px) {}
