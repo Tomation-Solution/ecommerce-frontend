@@ -8,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductsComponent implements OnInit {
   products = [];
+  imageStorageUrl = '';
   constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
+    this.imageStorageUrl = this.productService.baseUrl;
     this.productService.getAllProducts().subscribe(result => {
       this.products = result.data;
     });

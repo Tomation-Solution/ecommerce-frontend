@@ -27,10 +27,10 @@ export class LoginRegisterComponent implements OnInit {
     };
     this.authService.registerCustomer(customerData).subscribe(result => {
       this.authService.CustomerDetails.isLoggedIn = true;
-      sessionStorage.setItem('token', result.access_token);
-      sessionStorage.setItem('role', 'customer');
-      sessionStorage.setItem('username', result.firstname);
-      this.authService.username.next(sessionStorage.getItem('username'));
+      localStorage.setItem('token', result.access_token);
+      localStorage.setItem('role', 'customer');
+      localStorage.setItem('username', result.firstname);
+      this.authService.username.next(localStorage.getItem('username'));
       this.router.navigate(['/home']);
     }, err => {
       console.log(err);

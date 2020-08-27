@@ -12,8 +12,8 @@ export class AdminGuardGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      const token = sessionStorage.getItem('token');
-      const role = sessionStorage.getItem('role');
+      const token = localStorage.getItem('token');
+      const role = localStorage.getItem('role');
       if (role === 'vendor' && token !== null) {
         this.authService.isLoggedIn = true;
         return true;

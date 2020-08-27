@@ -10,7 +10,7 @@ export class AuthService {
   loggedInVendor: any;
   CustomerDetails = {data: { }, isLoggedIn: false};
   public username = new BehaviorSubject('');
-  private baseUrl = 'http://ecommerce-backend.eba-psj2dvdx.us-west-2.elasticbeanstalk.com';
+  private baseUrl = 'http://127.0.0.1:5000';
   private vendorLoginUrl = this.baseUrl + '/vendor/login';
   private customerRegistratinUrl = this.baseUrl + '/customers/registration';
 
@@ -21,15 +21,15 @@ export class AuthService {
     return this.httpclient.post(this.vendorLoginUrl, data);
   }
   getUsername(): string {
-    return sessionStorage.getItem('username');
+    return localStorage.getItem('username');
   }
 
   getToken(): string {
-    return sessionStorage.getItem('token');
+    return localStorage.getItem('token');
   }
 
   logOutVendor(): void {
-    sessionStorage.clear();
+    localStorage.clear();
   }
 
   registerCustomer(data): Observable<any> {

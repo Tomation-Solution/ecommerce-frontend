@@ -5,11 +5,11 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class CategoryServiceService {
-  public baseUrl = 'http://ecommerce-backend.eba-psj2dvdx.us-west-2.elasticbeanstalk.com/';
-  private allCategoriesUrl = this.baseUrl + 'vendor/categories';
-  private allProductsForACatUrl = this.baseUrl + 'products?category=category_name';
-  private getASingleCategoryUrl = this.baseUrl + 'vendor/categories/';
-  private updateACategoryUrl = this.baseUrl + 'vendor/categories/';
+  public baseUrl = 'http://127.0.0.1:5000';
+  private allCategoriesUrl = this.baseUrl + '/vendor/categories';
+  private allProductsForACatUrl = this.baseUrl + '/products?category=category_name';
+  private getASingleCategoryUrl = this.baseUrl + '/vendor/categories/';
+  private updateACategoryUrl = this.baseUrl + '/vendor/categories/';
   constructor(private http: HttpClient) { }
 
   getAllCategories(): any{

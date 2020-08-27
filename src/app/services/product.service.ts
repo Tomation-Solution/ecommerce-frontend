@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 })
 export class ProductService {
   public product = new BehaviorSubject({});
-  private baseUrl = 'http://ecommerce-backend.eba-psj2dvdx.us-west-2.elasticbeanstalk.com/';
+  public baseUrl = 'http://127.0.0.1:5000';
   private getAProductUrl = this.baseUrl + '/product/id';
   private addAProductUrl = this.baseUrl + '/products';
   private mostViewedUrl = this.baseUrl + '/products?type=mostviewed';

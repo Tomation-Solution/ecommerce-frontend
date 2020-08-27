@@ -11,8 +11,8 @@ export class AdminDeactivateGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      const token = sessionStorage.getItem('token');
-      const role = sessionStorage.getItem('role');
+      const token = localStorage.getItem('token');
+      const role = localStorage.getItem('role');
       if (role === null && token === null) {
         this.authService.isLoggedIn = false;
         return true;

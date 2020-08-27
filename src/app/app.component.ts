@@ -11,6 +11,7 @@ import * as $ from 'jquery';
 })
 export class AppComponent implements OnInit {
   title = 'medheight';
+  imageStorageUrl = ''; // the base url for the images
   poppedProduct: any;
 
   constructor(
@@ -19,6 +20,7 @@ export class AppComponent implements OnInit {
     private productService: ProductService) { }
 
   ngOnInit(): void {
+    this.imageStorageUrl = this.productService.baseUrl;
     this.productService.product.subscribe(result => {
        this.poppedProduct = result;
        console.log(this.poppedProduct);

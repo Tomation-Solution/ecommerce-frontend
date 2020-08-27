@@ -1,5 +1,5 @@
+import { CartService } from './../services/cart.service';
 import { ProductService } from './../services/product.service';
-import { Product } from './../admin/products/product.model';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -8,13 +8,27 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
+  imageStorageUrl;
+  outOfStock = true;
   @Input() product;
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private cartService: CartService) { }
 
   ngOnInit(): void {
+    this.imageStorageUrl = this.productService.baseUrl;
+    this.checkOutOfStock();
   }
 
   popUpProduct(): void{
     this.productService.product.next(this.product);
+  }
+
+  addToCart(): void {
+    this.cartService.addToCart(this.product);
+  }
+
+  checkOutOfStock(): void {
+    if (this.product.stock_quantity > 0) {
+      this.outOfStock = false;
+    }
   }
 }

@@ -26,9 +26,9 @@ export class AdminLoginComponent implements OnInit {
         // stores the user data in the auth service
         this.auth.loggedInVendor = result;
         // stores the user token in the session
-        sessionStorage.setItem('token', result.access_token);
-        sessionStorage.setItem('role', 'vendor');
-        sessionStorage.setItem('username', result.firstname);
+        localStorage.setItem('token', result.access_token);
+        localStorage.setItem('role', 'vendor');
+        localStorage.setItem('username', result.firstname);
         this.route.navigateByUrl('/admin/dashboard');
       }
     }, err => {

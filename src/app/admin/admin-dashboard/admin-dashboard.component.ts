@@ -12,7 +12,7 @@ export class AdminDashboardComponent implements OnInit {
   constructor(public authService: AuthService, private router: Router) { }
     username: string;
   ngOnInit(): void {
-    this.username = sessionStorage.getItem('username');
+    this.username = localStorage.getItem('username');
   }
   logOut(): void {
     this.authService.logOutVendor();

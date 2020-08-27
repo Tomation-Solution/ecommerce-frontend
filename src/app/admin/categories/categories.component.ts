@@ -1,3 +1,4 @@
+import { ProductService } from './../../services/product.service';
 import { CategoryServiceService } from './../../services/category-service.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -9,11 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoriesComponent implements OnInit {
   categoryList = [];
-  productImageUrl = 'http://127.0.0.1:5000/static';
+  imageStorageUrl = '';
   products = [];
   constructor(private catService: CategoryServiceService) { }
 
   ngOnInit(): void {
+    this.imageStorageUrl = this.catService.baseUrl;
     this.catService.getAllCategories().subscribe(result => {
       this.categoryList = result.data;
     }, err => {
