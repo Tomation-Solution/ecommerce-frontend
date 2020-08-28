@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryServiceService {
-  public baseUrl = 'http://127.0.0.1:5000';
+  public baseUrl = environment.backEndUrl;
   private allCategoriesUrl = this.baseUrl + '/vendor/categories';
   private allProductsForACatUrl = this.baseUrl + '/products?category=category_name';
   private getASingleCategoryUrl = this.baseUrl + '/vendor/categories/';

@@ -1,13 +1,13 @@
+import { environment } from './../../environments/environment';
 import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
   public product = new BehaviorSubject({});
-  public baseUrl = 'http://127.0.0.1:5000';
+  public baseUrl = environment.backEndUrl;
   private getAProductUrl = this.baseUrl + '/product/id';
   private addAProductUrl = this.baseUrl + '/products';
   private mostViewedUrl = this.baseUrl + '/products?type=mostviewed';

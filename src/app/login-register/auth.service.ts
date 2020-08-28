@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class AuthService {
   loggedInVendor: any;
   CustomerDetails = {data: { }, isLoggedIn: false};
   public username = new BehaviorSubject('');
-  private baseUrl = 'http://127.0.0.1:5000';
+  private baseUrl = environment.backEndUrl;
   private vendorLoginUrl = this.baseUrl + '/vendor/login';
   private customerRegistratinUrl = this.baseUrl + '/customers/registration';
 
