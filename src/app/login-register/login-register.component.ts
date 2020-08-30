@@ -11,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginRegisterComponent implements OnInit {
   customer: Customer = {};
-  RegistrationError = '';
+  RegistrationError = [];
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
@@ -26,17 +26,30 @@ export class LoginRegisterComponent implements OnInit {
       password: this.customer.password
     };
     this.authService.registerCustomer(customerData).subscribe(result => {
-      this.authService.CustomerDetails.isLoggedIn = true;
       localStorage.setItem('token', result.access_token);
       localStorage.setItem('role', 'customer');
       localStorage.setItem('username', result.firstname);
-      this.authService.username.next(localStorage.getItem('username'));
       this.router.navigate(['/home']);
     }, err => {
-      console.log(err);
+      this.RegistrationError = [];
+      Object.keys(err.error).forEach((key) => {
+        if (err.error[key] !== 'error'){
+          this.RegistrationError.push(err.error[key][0]);
+        }
+      });
     });
   }
   login(form: NgForm): void {
-
+    this.authService.loginCustomer(form.value).subscribe(result => {
+      localStorage.setItem('token', result.access_token);
+      localStorage.setItem('username', result.firstname);
+      // encrypt the id
+      const id = result.customer_id + 21;
+      localStorage.setItem('customerId', id);
+      this.authService.customerIsLoggedIn();
+      this.router.navigateByUrl('/home');
+    }, err => {
+      console.log(err);
+    });
   }
 }

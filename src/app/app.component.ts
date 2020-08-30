@@ -23,7 +23,6 @@ export class AppComponent implements OnInit {
     this.imageStorageUrl = this.productService.baseUrl;
     this.productService.product.subscribe(result => {
        this.poppedProduct = result;
-       console.log(this.poppedProduct);
       });
   }
 }

@@ -26,12 +26,12 @@
                       <div class="col-lg-6">
                           <div class="login-reg-form-wrap  pr-lg-50">
                               <h2>Sign In</h2>
-                              <form action="#" method="post">
+                              <form action="#" method="post" #loginForm="ngForm" (ngSubmit)="login(loginForm)">
                                   <div class="single-input-item">
-                                      <input type="email" placeholder="Email or Username" required />
+                                      <input type="email" placeholder="Email or Username" required ngModel name="email"/>
                                   </div>
                                   <div class="single-input-item">
-                                      <input type="password" placeholder="Enter your Password" required />
+                                      <input type="password" placeholder="Enter your Password" required ngModel name="password"/>
                                   </div>
                                   <div class="single-input-item">
                                       <div class="login-reg-form-meta d-flex align-items-center justify-content-between">
@@ -56,6 +56,9 @@
                       <div class="col-lg-6">
                           <div class="login-reg-form-wrap mt-md-34 mt-sm-34">
                               <h2>Signup Form</h2>
+                              <ul>
+                                <li *ngFor='let error of RegistrationError' class="text-danger">{{error}}</li>
+                              </ul>
                               <form  method="post" #form="ngForm" (ngSubmit)="register(form)">
                                   <div class="single-input-item">
                                       <input type="text" placeholder="First Name" required #firstname name="firstName" [(ngModel)]="customer.firstName"/>
@@ -83,7 +86,7 @@
                                       </div>
                                   </div>
                                   <span class="text-danger" *ngIf="pwd.value !== pwd1.value ">Password does not match</span>
-                                  <span class="text-danger" *ngIf="pwd.invalid">Password must be 8 at least 8 characters</span>
+                                  <span class="text-danger" *ngIf="pwd.invalid">Password must be between 8 and 15</span>
                                   <div class="single-input-item">
                                       <button class="sqr-btn" [disabled]="form.invalid || pwd.value !== pwd1.value" type="submit">Register</button>
                                   </div>

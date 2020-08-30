@@ -1,3 +1,4 @@
+import { AuthService } from './../login-register/auth.service';
 import { CartService } from './../services/cart.service';
 import { CategoryServiceService } from './../services/category-service.service';
 import { Component, OnInit } from '@angular/core';
@@ -12,10 +13,17 @@ export class HeaderComponent implements OnInit {
   imageStorageUrl;
   totalQty = 0;
   totalCost = 0;
+  userIsLoggedIn = localStorage.getItem('token') ? true : false;
   cartProducts = [];
-  constructor(private catService: CategoryServiceService, private cartService: CartService) { }
+  constructor(
+    private catService: CategoryServiceService,
+    private cartService: CartService,
+    public authService: AuthService) { }
 
   ngOnInit(): void {
+    this.authService.Customer.subscribe(result => {
+      this.userIsLoggedIn = result[0];
+    });
     $('.category-toggle').on('click', () => {
       $('.category-menu').slideToggle();
     });
@@ -47,26 +55,26 @@ export class HeaderComponent implements OnInit {
       if (this.cartService.addedProductList.products[productName] !== undefined) {
         this.cartService.addedProductList.products[productName].quantity += result[1].quantity;
       } else {
-        console.log('new value added before click');
         this.cartService.addedProductList.products[productName] = result[1];
       }
       this.cartService.calculateTotalQtyAndCost();
-      console.log('this cart is', this.cartService.addedProductList);
     });
   }
 
   fetchLocalStorageCart(): void {
     this.cartProducts = [];
-    const productObj = JSON.parse(localStorage.getItem('cart')).products;
-    const productObjKeys = Object.keys(productObj);
-    productObjKeys.forEach((value) => {
-      // get the obj with the name
-      const element = productObj[value];
-      // tslint:disable-next-line: no-string-literal
-      element['productName'] = value;
-      this.cartProducts.push(element);
-    });
-    console.log(this.cartProducts);
+    const storedCart = localStorage.getItem('cart');
+    if (storedCart !== null && storedCart !== '') {
+      const productObj = JSON.parse(storedCart).products;
+      const productObjKeys = Object.keys(productObj);
+      productObjKeys.forEach((value) => {
+        // get the obj with the name
+        const element = productObj[value];
+        // tslint:disable-next-line: no-string-literal
+        element['productName'] = value;
+        this.cartProducts.push(element);
+      });
+    }
   }
 
   removeFromCart(obj): void {

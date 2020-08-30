@@ -25,7 +25,6 @@ export class CategoriesComponent implements OnInit {
 
   // fetch all products for a single category
   getProductsForCat(category: string): any {
-    console.log(category);
     this.catService.getProductsForACategory(category).subscribe(result => {
       if (result.data !== []) {
         this.products = result.data;

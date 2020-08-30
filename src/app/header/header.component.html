@@ -76,7 +76,8 @@
                     <span class="subtotal-price">₦{{totalCost}}</span>
                   </li>
                   <li class="checkout-btn">
-                    <a href="#">checkout</a>
+                    <a routerLink ='/checkout' [hidden]='!userIsLoggedIn'>checkout</a>
+                    <a routerLink ='/login' [hidden]='userIsLoggedIn'>Login to checkout</a>
                   </li>
                 </ul>
               </div>

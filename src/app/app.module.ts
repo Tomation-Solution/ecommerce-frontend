@@ -18,6 +18,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { AdminModule } from './admin/admin.module';
 import { HeadertopComponent } from './headertop/headertop.component';
 import { ProductComponent } from './product/product.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +31,7 @@ import { ProductComponent } from './product/product.component';
     CartComponent,
     CheckoutComponent,
     ProductDetailComponent,
-    ProductComponent
+    ProductComponent,
   ],
   imports: [
     BrowserModule,
