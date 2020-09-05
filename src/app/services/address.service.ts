@@ -11,7 +11,7 @@ export class AddressService {
   private customerAddressUrl = this.baseUrl + '/addresses';
   constructor(private http: HttpClient) { }
 
-  getCustomerAddresses(customerId: number): Observable<any> {
+  getCustomerAddresses(): Observable<any> {
     return this.http.get(this.customerAddressUrl);
   }
 }

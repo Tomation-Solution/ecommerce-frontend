@@ -27,11 +27,12 @@
                           <div class="login-reg-form-wrap  pr-lg-50">
                               <h2>Sign In</h2>
                               <form action="#" method="post" #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+                                  <span>{{loginError}}</span>
                                   <div class="single-input-item">
-                                      <input type="email" placeholder="Email or Username" required ngModel name="email"/>
+                                      <input type="email" placeholder="Email or Username" required ngModel name="email" #email/>
                                   </div>
                                   <div class="single-input-item">
-                                      <input type="password" placeholder="Enter your Password" required ngModel name="password"/>
+                                      <input type="password" placeholder="Enter your Password" required ngModel name="password" #password/>
                                   </div>
                                   <div class="single-input-item">
                                       <div class="login-reg-form-meta d-flex align-items-center justify-content-between">
@@ -45,7 +46,7 @@
                                       </div>
                                   </div>
                                   <div class="single-input-item">
-                                      <button class="sqr-btn">Login</button>
+                                      <button class="sqr-btn" [disabled]="loginForm.invalid">Login</button>
                                   </div>
                               </form>
                           </div>

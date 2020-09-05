@@ -12,6 +12,7 @@ import { Component, OnInit } from '@angular/core';
 export class LoginRegisterComponent implements OnInit {
   customer: Customer = {};
   RegistrationError = [];
+  loginError = '';
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
@@ -43,13 +44,14 @@ export class LoginRegisterComponent implements OnInit {
     this.authService.loginCustomer(form.value).subscribe(result => {
       localStorage.setItem('token', result.access_token);
       localStorage.setItem('username', result.firstname);
-      // encrypt the id
-      const id = result.customer_id + 21;
+      localStorage.setItem('email', result.email);
+      const id = result.customer_id;
       localStorage.setItem('customerId', id);
       this.authService.customerIsLoggedIn();
       this.router.navigateByUrl('/home');
     }, err => {
-      console.log(err);
+      this.loginError = err.error.data;
+      console.log(err.error.data);
     });
   }
 }

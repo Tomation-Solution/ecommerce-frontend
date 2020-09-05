@@ -42,5 +42,6 @@ export class HeadertopComponent implements OnInit {
    this.cartService.calculateTotalQtyAndCost();
    // emit a trigger to update the total cost and quantity
    // redirect to the home page
+   this.router.navigateByUrl('/home');
   }
 }

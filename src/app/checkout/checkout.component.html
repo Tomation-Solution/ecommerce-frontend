@@ -65,8 +65,10 @@
                             </div>
 
                             <div class="single-input-item">
-                                <label for="Daddress" class="required pt-20">Delivery address</label>
-                                <input type="text" id="Daddress" value='{{selectedAdd}}' placeholder="Delivery address Line " required disabled/>
+
+                                <label for="Daddress" class="required pt-20">Delivery address</label><br>
+                                <span *ngIf="!selectedAdd" >No address selected</span>
+                                <input type="text" id="Daddress" value='{{selectedAdd}}' placeholder="Delivery address " required disabled/>
                             </div>
 
                             <div class="single-input-item">
@@ -131,7 +133,13 @@
                         </div>
                         <!-- Order Payment Method -->
                         <div class="order-payment-method">
-                            <div class="single-payment-method show">
+                          <div class="form-check" *ngFor="let type of paymentTypeList" >
+                            <label class="form-check-label" (click)="getPaymentType($event)" >
+                              <input type="radio" class="form-check-input" name="optradio"
+                              value="{{type.paymenttype_id}}">{{type.payment_type}}
+                            </label>
+                          </div>
+                            <!-- <div class="single-payment-method show">
                                 <div class="payment-method-name">
                                     <div class="custom-control custom-radio">
                                         <input type="radio" id="cashon" name="paymentmethod" value="cash" class="custom-control-input" checked  />
@@ -139,7 +147,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="single-payment-method">
+
+                           <div class="single-payment-method">
                                 <div class="payment-method-name">
                                     <div class="custom-control custom-radio">
                                         <input type="radio" id="directbank" name="paymentmethod" value="bank" class="custom-control-input" />
@@ -149,14 +158,17 @@
                                 <div class="payment-method-details" data-method="bank">
                                     <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account..</p>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="summary-footer-area">
                                 <div class="custom-control custom-checkbox mb-14">
                                     <input type="checkbox" class="custom-control-input" id="terms" required />
                                     <label class="custom-control-label" for="terms">I have read and agree to the website <a
                                         href="index.html">terms and conditions.</a></label>
                                 </div>
-                                <button type="submit" class="check-btn sqr-btn">Place Order</button>
+                                <button type="submit" class="check-btn sqr-btn" [disabled]="!orders.address_id || !orders.paymenttype_id"
+                                title="address and payment type must be selected" id="makeOrder">
+                                  Place Order
+                                </button>
                             </div>
                         </div>
                     </div>

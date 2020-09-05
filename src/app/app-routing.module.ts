@@ -5,7 +5,6 @@ import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { LoginRegisterComponent } from './login-register/login-register.component';
-import { MyaccountComponent } from './myaccount/myaccount.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -16,7 +15,7 @@ const routes: Routes = [
   { path: 'login', component: LoginRegisterComponent},
   { path: 'checkout', component: CheckoutComponent},
   { path: 'register', component: LoginRegisterComponent},
-  { path: 'account', component: MyaccountComponent},
+  { path: 'account', loadChildren: () => import('./myaccount/account.module').then(account => account.AccountModule)},
   { path: '**', component: LoginRegisterComponent}
 ];
 

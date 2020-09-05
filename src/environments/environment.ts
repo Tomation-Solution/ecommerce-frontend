@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  backEndUrl: 'http://127.0.0.1:5000'
-
+  backEndUrl: 'http://127.0.0.1:5000',
+  publicKey: 'pk_test_5e81564ee0d4a3d7a44615950df5ef74e35c79e1'
 };
 
 /*
