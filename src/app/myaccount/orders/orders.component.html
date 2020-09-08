@@ -1,1 +1,28 @@
-welcome to the orders page
+  <div class="myaccount-content">
+      <h3>Orders</h3>
+      <div class="myaccount-table table-responsive text-center">
+          <table class="table table-bordered">
+              <thead class="thead-light">
+                  <tr>
+                      <th>Order</th>
+                      <th>Date</th>
+                      <th>Status</th>
+                      <th>Total</th>
+                      <th>Paid</th>
+                      <th>Action</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let order of customerOrders; let indexOfelement=index;" >
+                      <td>{{indexOfelement}}</td>
+                      <td>{{order.date_ordered | date:'MM/dd/yy'}}</td>
+                      <td>{{order.status}}</td>
+                      <td>₦{{order.total_price}}</td>
+                      <td>{{order.paid}}</td>
+                      <td><a href="cart.html" class="check-btn sqr-btn ">View</a></td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+

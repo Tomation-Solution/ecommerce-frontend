@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class OrderService {
+  updateOrderTrigger = new BehaviorSubject({order_id: 0, ref: '', trans_ref: ''});
   private customerOrderUrl = environment.backEndUrl + '/customers/orders';
   private paymenttypeUrl = environment.backEndUrl + '/vendor/paymenttype';
   private updateOrderUrl = environment.backEndUrl + '/customer/orders/';
@@ -19,6 +20,12 @@ export class OrderService {
     return this.http.post(this.customerOrderUrl, orderDetails);
   }
   updateAnOrder(orderid: number, orderDetails): Observable<any> {
-    return this.http.patch(this.updateOrderUrl + orderid, orderDetails);
+    const formUrl = this.updateOrderUrl + orderid;
+    console.log(formUrl);
+    console.log(orderDetails);
+    return this.http.patch(formUrl, orderDetails);
+  }
+  getAllOrdersForCustomer(): Observable<any> {
+    return this.http.get(this.customerOrderUrl);
   }
 }

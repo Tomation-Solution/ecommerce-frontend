@@ -4,7 +4,7 @@ import { Orders } from './../models/order.model';
 import { NgForm } from '@angular/forms';
 import { OrderService } from './../services/order.service';
 import { CustomerService } from './../services/customer.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { AddressService } from '../services/address.service';
 
 declare let PaystackPop: any; // declare moment
@@ -26,8 +26,9 @@ export class CheckoutComponent implements OnInit {
   constructor(
     private custService: CustomerService,
     private addService: AddressService,
-    private orderSevice: OrderService,
-    private router: Router) { }
+    private orderService: OrderService,
+    private router: Router,
+    private ngZone: NgZone) { }
 
   ngOnInit(): void {
     // fetch the customer id from local storage
@@ -37,9 +38,22 @@ export class CheckoutComponent implements OnInit {
     }, err => {
       console.log(err);
     });
-
+    // subscribe to order update triggered upon successful payment
+    this.orderService.updateOrderTrigger.subscribe(result => {
+      console.log(result)
+      if (result.order_id !== 0) {
+        this.orderService.updateAnOrder(result.order_id, {
+          status: 'delivered',
+          paid: 1,
+          transaction_id: result.ref,
+          transaction_reference: result.trans_ref
+        }).subscribe(res => {
+          this.router.navigateByUrl('/account/orders');
+        }, err => console.log(err));
+      }
+    });
     // fetch all payment type
-    this.orderSevice.getAllPaymentType().subscribe(result => {
+    this.orderService.getAllPaymentType().subscribe(result => {
       this.paymentTypeList = result.data;
     });
     // fetch the addresses of customer from local storage
@@ -49,6 +63,11 @@ export class CheckoutComponent implements OnInit {
       } else {
         this.hasAddress = true;
         this.addresses = result.data;
+        // if only one address is avaible show it
+        if (this.addresses.length > 0) {
+          this.selectedAdd = this.addresses[0].full_address;
+          this.orders.address_id = this.addresses[0].address_id;
+        }
       }
     }, err => {
       console.log(err);
@@ -84,6 +103,7 @@ export class CheckoutComponent implements OnInit {
     this.orders.paymenttype_id = +evt.target.value;
     // listen to the click event
     document.querySelector('#makeOrder').addEventListener('click', (): void => {
+      // get all the product from the localstorage and add them to order object
       const productToOrder = JSON.parse(JSON.stringify(this.cartProducts));
       productToOrder.forEach((item) => {
         delete item.productName;
@@ -91,15 +111,17 @@ export class CheckoutComponent implements OnInit {
         delete item.totalCost;
       });
       this.orders.orders = productToOrder;
+      // check the payment type for chosen by a user
       if (this.orders.paymenttype_id === 1) {
         // store the order in the back end and route to the order page
-        this.orderSevice.postAnOrder(this.orders).subscribe(result => {
+        this.orderService.postAnOrder(this.orders).subscribe(result => {
           alert('order recieved successfully');
           this.router.navigateByUrl('/account/orders');
         }, err => console.log(err));
       } else if (this.orders.paymenttype_id === 2) {
+        // if the user intend paying directly
         // store the order in the back end and route to the order page
-        this.orderSevice.postAnOrder(this.orders).subscribe(result => {
+        this.orderService.postAnOrder(this.orders).subscribe(result => {
 
           // pop up the payment gateway to make payment
           const totalCost = JSON.parse(localStorage.getItem('cart')).totalCost;
@@ -121,73 +143,23 @@ export class CheckoutComponent implements OnInit {
               ]
             },
             callback: (response) => {
-              // upon successful payment, update the order with the referenceid and transactionid
-              this.orderSevice.updateAnOrder(result.data.order_id, {
-                paid: 1,
-                transaction_id: response.reference,
-                transaction_reference: response.transaction
-              }).subscribe(resp => {
-                console.log(resp);
-                this.router.navigateByUrl('/account/orders');
-              }, err => console.log(err));
+              const orderData = {
+                order_id: result.data.order_id,
+                ref: response.reference,
+                trans_ref: response.transaction
+              };
+              this.ngZone.run(() => {
+                this.orderService.updateOrderTrigger.next(orderData);
+              });
             },
             onClose: () => {
-              alert('Payment not made');
+              alert('Payment has been cancelled!');
+              this.ngZone.run(() => this.router.navigateByUrl('/account/orders'));
             }
           });
           handler.openIframe();
         }, err => console.log(err));
-
-
       }
     });
   }
-
-  // makeOrder(): void {
-  //   const productToOrder = JSON.parse(JSON.stringify(this.cartProducts));
-  //   productToOrder.forEach((item) => {
-  //     delete item.productName;
-  //     delete item.product_image;
-  //     delete item.totalCost;
-  //   });
-  //   this.orders.orders = productToOrder;
-
-  //   // check if paymenttype_id = 1; which is pay on delivery
-  //   if (this.orders.paymenttype_id === 1) {
-  //     // store the order in the back end and route to the order page
-  //     this.orderSevice.postAnOrder(this.orders).subscribe(result => {
-  //       alert('order recieved successfully');
-  //       this.router.navigateByUrl('/account/orders');
-  //     }, err => console.log(err));
-  //   }
-  // }
-
-  // payWithPaystack(): void {
-  //   const handler = PaystackPop.setup({
-  //     key: 'pk_test_5e81564ee0d4a3d7a44615950df5ef74e35c79e1',
-  //     email: 'customer@email.com',
-  //     amount: 100000,
-  //     currency: 'NGN',
-  //     firstname: 'Taiwo',
-  //     lastname: 'King',
-  //     // label: "Optional string that replaces customer email"
-  //     metadata: {
-  //       custom_fields: [
-  //         {
-  //           display_name: 'kazeem',
-  //           variable_name: 'mobile_number',
-  //           value: '+2348012345678'
-  //         }
-  //       ]
-  //     },
-  //     callback: (response) => {
-  //       console.log(response)
-  //       alert('success. transaction ref is ' + response.reference);
-  //     },
-  //     onClose: () => {
-  //       alert('window closed');
-  //     }
-  //   });
-  //   handler.openIframe();
-  // }
 }
