@@ -1,5 +1,5 @@
 import { environment } from './../../environments/environment';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 @Injectable({
@@ -11,6 +11,7 @@ export class ProductService {
   private getAProductUrl = this.baseUrl + '/product/id';
   private addAProductUrl = this.baseUrl + '/products';
   private mostViewedUrl = this.baseUrl + '/products?type=mostviewed';
+  private categoryProductUrl = this.baseUrl + '/products?category=';
   constructor(private http: HttpClient) { }
 
   getAllProducts(): any {
@@ -29,5 +30,9 @@ export class ProductService {
   }
   getMostViewed(): any{
     return this.http.get(this.mostViewedUrl);
+  }
+  getProductsByCategory(name: string): Observable<any> {
+    const url = this.categoryProductUrl + name;
+    return this.http.get(url);
   }
 }

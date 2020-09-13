@@ -7,7 +7,7 @@
                       <div class="breadcrumb-wrap">
                           <nav aria-label="breadcrumb">
                               <ul class="breadcrumb">
-                                  <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                  <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
                                   <li class="breadcrumb-item active" aria-current="page">cart</li>
                               </ul>
                           </nav>
@@ -37,70 +37,27 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                  <tr>
+                                  <tr *ngFor="let item of cartDetails" >
                                       <td class="pro-thumbnail"><a href="#"><img class="img-fluid"
-                                                  src="assets/img/product/product-img2.jpg" alt="Product" /></a></td>
-                                      <td class="pro-title"><a href="#">k2 snowboard 2018</a></td>
-                                      <td class="pro-price"><span>₦295.00</span></td>
+                                                  src="{{imageStorageUrl}}/static/{{item.product_image}}" alt="Product" /></a></td>
+                                      <td class="pro-title"><a href="#">{{item.productName}}</a></td>
+                                      <td class="pro-price"><span>₦{{item.cost}}</span></td>
                                       <td class="pro-quantity">
-                                          <div class="pro-qty"><input type="text" value="1"></div>
+                                          <div class="pro-qty"><input type="text" value="{{item.quantity}}" disabled></div>
                                       </td>
-                                      <td class="pro-subtotal"><span>₦295.00</span></td>
-                                      <td class="pro-remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                                  </tr>
-                                  <tr>
-                                      <td class="pro-thumbnail"><a href="#"><img class="img-fluid"
-                                                  src="assets/img/product/product-img3.jpg" alt="Product" /></a></td>
-                                      <td class="pro-title"><a href="#">Aquet Drone D 420</a></td>
-                                      <td class="pro-price"><span>₦275.00</span></td>
-                                      <td class="pro-quantity">
-                                          <div class="pro-qty"><input type="text" value="2"></div>
-                                      </td>
-                                      <td class="pro-subtotal"><span>₦550.00</span></td>
-                                      <td class="pro-remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                                  </tr>
-                                  <tr>
-                                      <td class="pro-thumbnail"><a href="#"><img class="img-fluid"
-                                                  src="assets/img/product/product-img4.jpg" alt="Product" /></a></td>
-                                      <td class="pro-title"><a href="#">berzerker snowboard</a></td>
-                                      <td class="pro-price"><span>₦295.00</span></td>
-                                      <td class="pro-quantity">
-                                          <div class="pro-qty">
-                                              <input type="text" value="1" />
-                                          </div>
-                                      </td>
-                                      <td class="pro-subtotal"><span>₦295.00</span></td>
-                                      <td class="pro-remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                                  </tr>
-                                  <tr>
-                                      <td class="pro-thumbnail"><a href="#"><img class="img-fluid"
-                                                  src="assets/img/product/product-img5.jpg" alt="Product" /></a></td>
-                                      <td class="pro-title"><a href="#">element snowboard</a></td>
-                                      <td class="pro-price"><span>₦110.00</span></td>
-                                      <td class="pro-quantity">
-                                          <div class="pro-qty">
-                                              <input type="text" value="3" />
-                                          </div>
-                                      </td>
-                                      <td class="pro-subtotal"><span>₦110.00</span></td>
-                                      <td class="pro-remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
+                                      <td class="pro-subtotal"><span>₦{{item.totalcost}}</span></td>
+                                      <td class="pro-remove"><i class="fa fa-trash-o" (click)="removeProduct(item)" style="cursor: pointer;"></i></td>
                                   </tr>
                               </tbody>
                           </table>
                       </div>
 
-                      <!-- Cart Update Option -->
+                      <!-- Cart Update Option
                       <div class="cart-update-option d-block d-md-flex justify-content-between">
-                          <div class="apply-coupon-wrapper">
-                              <form action="#" method="post" class=" d-block d-md-flex">
-                                  <input type="text" placeholder="Enter Your Coupon Code" required />
-                                  <button class="sqr-btn">Apply Coupon</button>
-                              </form>
-                          </div>
                           <div class="cart-update mt-sm-16">
                               <a href="#" class="sqr-btn">Update Cart</a>
                           </div>
-                      </div>
+                      </div> -->
                   </div>
               </div>
 
@@ -114,20 +71,22 @@
                                   <table class="table">
                                       <tr>
                                           <td>Sub Total</td>
-                                          <td>₦230</td>
+                                          <td>₦{{totalCost}}</td>
                                       </tr>
                                       <tr>
                                           <td>Shipping</td>
-                                          <td>₦70</td>
+                                          <td>₦0</td>
                                       </tr>
                                       <tr class="total">
                                           <td>Total</td>
-                                          <td class="total-amount">₦300</td>
+                                          <td class="total-amount">₦{{totalCost}}</td>
                                       </tr>
                                   </table>
                               </div>
                           </div>
-                          <a href="checkout.html" class="sqr-btn d-block mb-3">Proceed To Checkout</a>
+                         <span (click)="checkout()" [hidden]="hideCheckoutButton">
+                            <a class="sqr-btn d-block mb-3" style="color: white;">checkout</a>
+                         </span>
                       </div>
                   </div>
               </div>

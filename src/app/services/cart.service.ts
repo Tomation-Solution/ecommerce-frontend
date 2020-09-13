@@ -36,7 +36,7 @@ export class CartService {
       for (const p in this.addedProductList.products) {
         if (this.addedProductList.products[p] !== undefined) {
           qtyacc += this.addedProductList.products[p].quantity;
-          totalCost += this.addedProductList.products[p].cost;
+          totalCost += this.addedProductList.products[p].cost * this.addedProductList.products[p].quantity;
         }
       }
       // this.addedProductList.totalCost = totalCost;
@@ -58,4 +58,23 @@ export class CartService {
     this.addedProductList.totalQuantity -= obj['quantity'];
     this.calculateTotalQtyAndCost();
   }
+
+  fetchLocalStorageProducts(): Array<any> {
+    const cartProducts = [];
+    const storedCart = localStorage.getItem('cart');
+    if (storedCart !== null && storedCart !== '') {
+      const productObj = JSON.parse(storedCart).products;
+      const productObjKeys = Object.keys(productObj);
+      productObjKeys.forEach((value) => {
+        // get the obj with the name
+        const element = productObj[value];
+        // tslint:disable-next-line: no-string-literal
+        element['productName'] = value;
+        cartProducts.push(element);
+      });
+    }
+    return cartProducts;
+  }
+
+
 }

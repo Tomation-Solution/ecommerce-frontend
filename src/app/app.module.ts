@@ -18,6 +18,8 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { AdminModule } from './admin/admin.module';
 import { HeadertopComponent } from './headertop/headertop.component';
 import { ProductComponent } from './product/product.component';
+import { CategoryComponent } from './category/category.component';
+import { NotFound404Component } from './not-found404/not-found404.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { ProductComponent } from './product/product.component';
     CheckoutComponent,
     ProductDetailComponent,
     ProductComponent,
+    CategoryComponent,
+    NotFound404Component,
   ],
   imports: [
     BrowserModule,

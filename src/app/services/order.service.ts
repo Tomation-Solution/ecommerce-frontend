@@ -28,4 +28,8 @@ export class OrderService {
   getAllOrdersForCustomer(): Observable<any> {
     return this.http.get(this.customerOrderUrl);
   }
+  getOrderDetails(orderId: number): Observable<any> {
+    const formUrl = this.updateOrderUrl + orderId; // /customer/orders/2
+    return this.http.get(formUrl);
+  }
 }

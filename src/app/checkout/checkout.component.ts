@@ -113,6 +113,7 @@ export class CheckoutComponent implements OnInit {
       this.orders.orders = productToOrder;
       // check the payment type for chosen by a user
       if (this.orders.paymenttype_id === 1) {
+        console.log(this.orders);
         // store the order in the back end and route to the order page
         this.orderService.postAnOrder(this.orders).subscribe(result => {
           alert('order recieved successfully');

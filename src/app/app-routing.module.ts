@@ -1,3 +1,5 @@
+import { NotFound404Component } from './not-found404/not-found404.component';
+import { CategoryComponent } from './category/category.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { CartComponent } from './cart/cart.component';
@@ -10,13 +12,14 @@ const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   {path: 'admin', loadChildren: () => import('./admin/admin.module').then(admin => admin.AdminModule)},
   { path: 'home', component: HomeComponent},
-  { path: 'cart', component: CartComponent},
+  { path: 'cart/:orderId', component: CartComponent},
   { path: 'product/:id', component: ProductDetailComponent},
+  { path: 'category/:name', component: CategoryComponent},
   { path: 'login', component: LoginRegisterComponent},
   { path: 'checkout', component: CheckoutComponent},
   { path: 'register', component: LoginRegisterComponent},
   { path: 'account', loadChildren: () => import('./myaccount/account.module').then(account => account.AccountModule)},
-  { path: '**', component: LoginRegisterComponent}
+  { path: '**', component: NotFound404Component}
 ];
 
 @NgModule({

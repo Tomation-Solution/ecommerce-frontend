@@ -36,6 +36,13 @@ export class AuthService {
     localStorage.clear();
   }
 
+  UserIsLoggedIn(): boolean {
+    if(localStorage.getItem('token') !== null) {
+      return true;
+    }
+    return false;
+  }
+
   registerCustomer(data): Observable<any> {
     return this.httpclient.post(this.customerRegistratinUrl, data);
   }

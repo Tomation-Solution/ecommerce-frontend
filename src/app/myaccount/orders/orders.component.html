@@ -19,7 +19,7 @@
                       <td>{{order.status}}</td>
                       <td>₦{{order.total_price}}</td>
                       <td>{{order.paid}}</td>
-                      <td><a href="cart.html" class="check-btn sqr-btn ">View</a></td>
+                      <td><a routerLink="/cart/{{order.order_id}}" class="check-btn sqr-btn ">View</a></td>
                   </tr>
               </tbody>
           </table>

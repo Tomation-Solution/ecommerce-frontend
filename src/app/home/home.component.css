@@ -55,6 +55,7 @@
   font-weight: bolder;
 }
 
+
 /* Extra small devices (portrait phones, less than 576px) */
 @media (max-width: 575px) {}
 
@@ -65,6 +66,7 @@
 @media (min-width: 768px) and (max-width: 991px) {
   .arrange {
     display: flex;
+    /* flex-wrap: wrap; */
   }
 
 }

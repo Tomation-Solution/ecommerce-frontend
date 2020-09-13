@@ -62,19 +62,7 @@ export class HeaderComponent implements OnInit {
   }
 
   fetchLocalStorageCart(): void {
-    this.cartProducts = [];
-    const storedCart = localStorage.getItem('cart');
-    if (storedCart !== null && storedCart !== '') {
-      const productObj = JSON.parse(storedCart).products;
-      const productObjKeys = Object.keys(productObj);
-      productObjKeys.forEach((value) => {
-        // get the obj with the name
-        const element = productObj[value];
-        // tslint:disable-next-line: no-string-literal
-        element['productName'] = value;
-        this.cartProducts.push(element);
-      });
-    }
+    this.cartProducts = this.cartService.fetchLocalStorageProducts();
   }
 
   removeFromCart(obj): void {
