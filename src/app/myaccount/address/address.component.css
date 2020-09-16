@@ -1,0 +1,9 @@
+.myaccount-content div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.myaccount-content h3 {
+  display: flex;
+  justify-content: space-between;
+}

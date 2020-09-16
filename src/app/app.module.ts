@@ -3,6 +3,7 @@ import { TokenInterceptorService } from './token-interceptor.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,6 +21,8 @@ import { HeadertopComponent } from './headertop/headertop.component';
 import { ProductComponent } from './product/product.component';
 import { CategoryComponent } from './category/category.component';
 import { NotFound404Component } from './not-found404/not-found404.component';
+import { AccountModule } from './myaccount/account.module';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -43,6 +46,11 @@ import { NotFound404Component } from './not-found404/not-found404.component';
     ReactiveFormsModule,
     AppRoutingModule,
     AdminModule,
+    AccountModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      closeButton: true
+    })
   ],
   exports: [HeadertopComponent],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true}],

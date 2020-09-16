@@ -1,52 +1,51 @@
 <div class="myaccount-content">
   <h3>Account Details</h3>
   <div class="account-details-form">
-      <form action="#">
+      <form #profileForm="ngForm" (ngSubmit)="update(profileForm)">
           <div class="row">
               <div class="col-lg-6">
                   <div class="single-input-item">
                       <label for="first-name" class="required">First Name</label>
-                      <input type="text" id="first-name" placeholder="First Name" />
+                      <input type="text" id="first-name" placeholder="First Name" name="firstname" #firstname required minlength="3" [(ngModel)]="customerDetails.firstName"/>
                   </div>
+                  <span class="text-danger" *ngIf="firstname.errors?.minlength">Firstname is required</span>
               </div>
               <div class="col-lg-6">
                   <div class="single-input-item">
                       <label for="last-name" class="required">Last Name</label>
-                      <input type="text" id="last-name" placeholder="Last Name" />
+                      <input type="text" id="last-name" placeholder="Last Name" required name="lastname" minlength="3" [(ngModel)]="customerDetails.lastName"/>
                   </div>
               </div>
           </div>
           <div class="single-input-item">
-              <label for="display-name" class="required">Display Name</label>
-              <input type="text" id="display-name" placeholder="Display Name" />
+              <label for="tel" class="required">Phone Number</label>
+              <input type="tel" id="tel" placeholder="Telephone 090..." pattern="0[0-9]{10}" required name="phone_number" ngModel maxlength="13" [(ngModel)]="customerDetails.phoneNumber"/>
           </div>
           <div class="single-input-item">
               <label for="email" class="required">Email Addres</label>
-              <input type="email" id="email" placeholder="Email Address" />
+              <input type="email" id="email" placeholder="Email Address" required name="email" ngModel [(ngModel)]="customerDetails.email"/>
           </div>
           <fieldset>
               <legend>Password change</legend>
-              <div class="single-input-item">
-                  <label for="current-pwd" class="required">Current Password</label>
-                  <input type="password" id="current-pwd" placeholder="Current Password" />
-              </div>
+              <span class="text-danger" *ngIf="pwd.value !== pwd1.value ">Password does not match</span>
               <div class="row">
+
                   <div class="col-lg-6">
                       <div class="single-input-item">
                           <label for="new-pwd" class="required">New Password</label>
-                          <input type="password" id="new-pwd" placeholder="New Password" />
+                          <input type="password" id="new-pwd" #pwd placeholder="New Password... 8 characters or more" name="password" ngModel minlength="8"/>
                       </div>
                   </div>
                   <div class="col-lg-6">
                       <div class="single-input-item">
                           <label for="confirm-pwd" class="required">Confirm Password</label>
-                          <input type="password" id="confirm-pwd" placeholder="Confirm Password" />
+                          <input type="password" id="confirm-pwd" #pwd1 placeholder="Confirm Password" name="cpassword" ngModel/>
                       </div>
                   </div>
               </div>
           </fieldset>
           <div class="single-input-item">
-              <button class="check-btn sqr-btn ">Save Changes</button>
+              <button class="check-btn sqr-btn " [disabled]="profileForm.invalid || pwd.value !== pwd1.value">Save Changes</button>
           </div>
       </form>
   </div>

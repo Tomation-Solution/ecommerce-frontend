@@ -14,4 +14,11 @@ export class AddressService {
   getCustomerAddresses(): Observable<any> {
     return this.http.get(this.customerAddressUrl);
   }
+
+  addNewAddress(address: object): Observable<any> {
+    return this.http.post(this.customerAddressUrl, address);
+  }
+  updateAnAddress(id: number, newAddress: any): Observable<any> {
+    return this.http.patch(this.customerAddressUrl + '/' + id, newAddress);
+  }
 }

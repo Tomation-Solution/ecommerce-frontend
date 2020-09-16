@@ -19,11 +19,11 @@ export class CartComponent implements OnInit {
   hideCheckoutButton = false;
   deleteNotifier = new BehaviorSubject([]);
   constructor(private cartService: CartService,
-    private orderService: OrderService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private productService: ProductService,
-    private authService: AuthService) { }
+              private orderService: OrderService,
+              private route: ActivatedRoute,
+              private router: Router,
+              private productService: ProductService,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
     this.userIsLoggedIn = this.authService.UserIsLoggedIn();

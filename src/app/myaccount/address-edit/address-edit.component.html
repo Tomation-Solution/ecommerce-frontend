@@ -1,0 +1,16 @@
+<address>
+
+ <form action="" #addrForm="ngForm">
+  <textarea name="addr" cols="25" rows="6" [disabled]="notEditMode" [(ngModel)]="addr">
+    {{address.full_address}}
+   </textarea><br>
+   <button class="check-btn sqr-btn " (click)="editAddress()" title="Edit Address" [hidden]="!notEditMode">
+     <i class="fa fa-edit"></i>
+     Edit Address
+   </button>
+   <button class="check-btn sqr-btn " (click)="updateAddress()" [hidden]="notEditMode">
+     <i class="fa fa-arrow-up"></i>
+     Update
+   </button>
+ </form>
+</address>
